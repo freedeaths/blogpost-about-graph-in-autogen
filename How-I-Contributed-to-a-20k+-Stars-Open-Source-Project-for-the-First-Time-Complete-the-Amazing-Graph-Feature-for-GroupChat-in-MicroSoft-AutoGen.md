@@ -1,4 +1,4 @@
-# How I Contributed to a 20k+ Stars Open Source Project for the First Time: Assist in Complete the Amazing Graph Feature for GroupChat in MicroSoft/AutoGen
+# How I Contributed to a 20k+ Stars Open Source Project for the First Time: Assist in Completing the Amazing Graph Feature for GroupChat in MicroSoft/AutoGen
 
 ## Introduction
 
