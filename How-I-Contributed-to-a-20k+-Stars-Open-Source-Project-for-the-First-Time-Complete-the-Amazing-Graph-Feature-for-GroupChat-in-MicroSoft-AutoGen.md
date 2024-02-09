@@ -17,7 +17,7 @@ Among a lot of Multi-Agents frameworks, AutoGen caught my attention for the foll
 
 This coincides with our previous idea, which is to use a relatively unified and simple paradigm (using multiple agents as a group similar to https://lilianweng.github.io/posts/2023-06-23-agent/) to solve a large class of tasks. The simple concept means strong universality (possibly accompanied by difficulty in handling). The awesome examples can indirectly prove that it has a high ceiling, a large imagination, so we decided to use AutoGen to do some experiments and evaluate how complex real business scenarios it can handle.
 
-![Agent](https://private-user-images.githubusercontent.com/2590428/303511937-19b1a898-15b0-4459-b51f-5aaea40ab9b5.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDc0MzUzMTEsIm5iZiI6MTcwNzQzNTAxMSwicGF0aCI6Ii8yNTkwNDI4LzMwMzUxMTkzNy0xOWIxYTg5OC0xNWIwLTQ0NTktYjUxZi01YWFlYTQwYWI5YjUucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDIwOCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDAyMDhUMjMzMDExWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9ZDBkOTYyZDUyMWQ1YzgxNmQ5YTA2YzJkMzI1YjI1M2NmYzE2YzJlNjgxMjExZWM4MGQ0MTkzNTAyYmQzNTA2ZiZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.v2_0rhC1wF4l6UzfygrNTxsETzYswefxtbDkUbFL5bw)
+![Agent](agent_concept.jpg)
 
 ### Motivation
 
@@ -35,7 +35,7 @@ In previous experiments, I noticed that not every GroupChat response was in the 
 
 I designed a task as shown in the figure: each agent counts according to the transfer conditions. The current GPT-3.5 has no problem determining whether integers up to 30 are divisible by 3 or 5. Moreover, the context of this task is short enough, so it can be assumed that apart from the order of speech, the entire task should not pose any difficulties for GPT-4.
 
-![FSM](https://private-user-images.githubusercontent.com/2590428/303511988-f1d1da83-5ae4-4ced-ba81-036d26597db3.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDc0MzU3NDIsIm5iZiI6MTcwNzQzNTQ0MiwicGF0aCI6Ii8yNTkwNDI4LzMwMzUxMTk4OC1mMWQxZGE4My01YWU0LTRjZWQtYmE4MS0wMzZkMjY1OTdkYjMucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDIwOCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDAyMDhUMjMzNzIyWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9ZGY0Yzk1Y2JlYmE2M2MwZTNmMTJlMTY3ZTViNTdlZjAyMzhhNTdmMDgyZDhmOWI4OTE0YTNhNzg2ZjY5OGQ3YyZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.WQnYfyoeqs0tbUZaTx0gcJKGIZR1Oi4YMqx_9vwok6c)
+![FSM](FSM_logic.jpg)
 
 But the experimental results were astonishing. GPT-4 or GPT-4-turbo surprisingly failed to complete the task as expected, which I never expected. Controlling the order of speech seems to be the only job for `GroupChatManager`. This also means that in many scenarios, it may not be able to effectively complete tasks.
 
@@ -206,7 +206,7 @@ Actually, I believe that in most of use cases, besides brainstorming, FSM can be
     1. **The graph here and the transition conditions mentioned above together form a complete FSM. Both are essential and cannot be missing.**
     2. You can visualize it as you wish, which is shown as follow
 
-    ![visualization](https://private-user-images.githubusercontent.com/2590428/303512046-e2d9f0f1-877d-4f36-b614-f1853b8be598.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDc0MzU3NDIsIm5iZiI6MTcwNzQzNTQ0MiwicGF0aCI6Ii8yNTkwNDI4LzMwMzUxMjA0Ni1lMmQ5ZjBmMS04NzdkLTRmMzYtYjYxNC1mMTg1M2I4YmU1OTgucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDIwOCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDAyMDhUMjMzNzIyWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9ZWRmZTM0YWZiNjc3ZTliYzNmYmY0MjEzMjA5NDU3MDZjN2FhYjA1ZmJhMTcyNTI0ZDUyYzNiZDNiZGEzYzhmYSZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.Ktp4M2aMOVKwus4dCny-swjwTAj-uHnu6lKjWJH_GcA)
+    ![visualization](FSM_of_multi-agents.jpg)
 
 6. Define a `GroupChat` and a `GroupChatManager`
 
